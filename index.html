@@ -1,0 +1,30 @@
+<!-- ********--Session Storage--********
+    Kullanıcının tek işlem yaptığı, ancak aynı anda farklı pencerelerde 
+    birden çok işlem gerçekleştirebileceği senaryolar için tasarlanmıştır. Bu tarayıcıdayken 
+    açılan aynı siteye ait birçok sayfada erişilebilirdir ve tarayıcı kapattıldığında ise 
+    kendini temizler. Bu sayede üçüncü tarafların verilere erişmesi de zorlaşır.
+-->
+<script>
+sessionStorage.setItem('UserNameSessionStorage','OmerBurakKoklu'); // set(yazmak) etmek istersek;
+sessionStorage.getItem('UserNameSessionStorage'); // get(okumak) etmek istersek;       
+sessionStorage.removeItem('UserNameSessionStorage'); // Kayıt Silmek istersek;
+sessionStorage.clear(); // Tüm verileri silmek istersek;
+</script>
+
+ <!-- ********--Cookie--********
+    Cookie, en sık kullanılan storage yöntemlerinden biridir. Bilgiler client tarafında 
+    saklanır bu yüzden yük clientlardadır. Burada her client kendi cookie bilgisini tutar. 
+    Yani chrome da tutulan çerez bilgisi chrome özelindedir. Başka bir tarayıcıdan 
+    girildiğinde yeni bir çerez tanımlanması gerekir. Çerezler belirtilen sürelerde aktif 
+    olabilir yada kalıcı olmayan client kapandığında kaybolacak çerezler tanımlanabilir.
+-->
+<!-- Cookie Kullanımı -->
+<script>//10dk boyunca client tarafında tutulacak bir cookie tanımlayarak bunu okumak istersek;
+cookieOptions cookieOptions = new CookieOptions();
+cookieOptions.Expires = DateTime.Now.AddMinutes(10);
+Response.Cookies.Append("UserNameCookie", "OmerBurakKoklu", cookieOptions);
+</script>
+
+<script> //Request içerisinde key bilgisini vererek cookieyi almak istersek;
+var userNameCookie = Request.Cookies["UserNameCookie"]; 
+</script>	
