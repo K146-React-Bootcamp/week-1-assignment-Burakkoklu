@@ -4,11 +4,17 @@
     açılan aynı siteye ait birçok sayfada erişilebilirdir ve tarayıcı kapattıldığında ise 
     kendini temizler. Bu sayede üçüncü tarafların verilere erişmesi de zorlaşır.
 -->
-<script>
-sessionStorage.setItem('UserNameSessionStorage','OmerBurakKoklu'); // set(yazmak) etmek istersek;
-sessionStorage.getItem('UserNameSessionStorage'); // get(okumak) etmek istersek;       
-sessionStorage.removeItem('UserNameSessionStorage'); // Kayıt Silmek istersek;
-sessionStorage.clear(); // Tüm verileri silmek istersek;
+<script> //Değer tanımlamak için 2 yöntem mevcut, bunlardan ikisini de kullanmak istersek;
+    sessionStorage.setItem('key', 'value')
+    sessionStorage.key = 'value'
+</script>
+
+<script>//Tıpkı değer tanımlamada olduğu gibi değere erişmek için de 2 yöntem var kullanımı;
+    sessionStorage.getItem('key')
+    sessionStorage.key
+</script>
+<script>// Değer silmek istersek;
+    delete sessionStorage.key
 </script>
 
  <!-- ********--Cookie--********
@@ -19,12 +25,36 @@ sessionStorage.clear(); // Tüm verileri silmek istersek;
     olabilir yada kalıcı olmayan client kapandığında kaybolacak çerezler tanımlanabilir.
 -->
 <!-- Cookie Kullanımı -->
-<script>//10dk boyunca client tarafında tutulacak bir cookie tanımlayarak bunu okumak istersek;
-cookieOptions cookieOptions = new CookieOptions();
-cookieOptions.Expires = DateTime.Now.AddMinutes(10);
-Response.Cookies.Append("UserNameCookie", "OmerBurakKoklu", cookieOptions);
+<script> //Cookie oluşturup istediğimiz tarih ve saati verirsek ve o tarih aralığına kadar cookiyi tutmak istersek;
+   document.cookie = "username=burakkoklu; expires=Thu, 25 Sep 2022 12:00:00 UTC";
 </script>
 
-<script> //Request içerisinde key bilgisini vererek cookieyi almak istersek;
-var userNameCookie = Request.Cookies["UserNameCookie"]; 
-</script>	
+<script> // Cookie'yi Set etmek istersek;
+    function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+</script>
+
+<script> // Cookie'yi Get etmek istersek;
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+</script>
+
+<!-- Şuanda bu notu okuyan asistan arkadaşıma kucak dolusu sevgiler gönderiyorum, 
+    emeğiniz için teşekkürler iyi ki varsınız <3 -->
